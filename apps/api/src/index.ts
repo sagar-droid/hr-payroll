@@ -1,12 +1,18 @@
+import "./lib/env";
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import authRoutes from "./features/auth/auth.routes";
 import type { ApiResponse } from "@hr-payroll/types";
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
+app.use(cookieParser());
+
+app.use("/api/auth", authRoutes);
 
 app.get("/health", (req, res) => {
   const response: ApiResponse<{ status: string }> = {
