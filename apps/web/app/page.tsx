@@ -12,7 +12,7 @@ const App=async ()=>{
   const data = await getHealth();
   return (
     <>
-    <main style={{ padding: "2rem", fontFamily: "monospace" }}>
+    <div style={{ padding: "2rem", fontFamily: "monospace" }}>
       <h1>HR Payroll Platform</h1>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </main>
