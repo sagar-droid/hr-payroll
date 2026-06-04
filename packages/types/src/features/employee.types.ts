@@ -9,6 +9,6 @@ export type Employee = {
   jobTitle: string;
   departmentId: string;
   employmentType: EmploymentType;
-  status: EmploymentStatus;
+  employmentStatus: EmploymentStatus;
   createdAt: string;
 };

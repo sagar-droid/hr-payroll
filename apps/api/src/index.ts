@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./features/auth/auth.routes";
+import employeeRoutes from "./features/employees/employees.routes";
 import type { ApiResponse } from "@hr-payroll/types";
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/employees", employeeRoutes);
 
 app.get("/health", (req, res) => {
   const response: ApiResponse<{ status: string }> = {
