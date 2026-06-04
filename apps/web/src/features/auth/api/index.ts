@@ -56,3 +56,16 @@ export async function logoutApi(): Promise<void> {
     credentials: "include",
   });
 }
+
+export async function refreshTokenApi(): Promise<{ accessToken: string }> {
+  const res = await fetch(`${API_URL}/api/auth/refresh`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  const json: ApiResponse<{ accessToken: string }> = await res.json();
+
+  if (!json.success) throw new Error(json.message);
+
+  return json.data;
+}
