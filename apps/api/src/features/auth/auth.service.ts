@@ -102,3 +102,15 @@ export async function refreshAccessToken(token: string) {
 
   return { accessToken };
 }
+
+export async function getAuthUser(userId: string) {
+  const { data: user, error } = await supabase
+    .from("users")
+    .select("id, email, role")
+    .eq("id", userId)
+    .single();
+
+  if (error || !user) throw new Error("User not found");
+
+  return user;
+}

@@ -1,6 +1,11 @@
 import type { Request, Response } from "express";
 import { RegisterSchema, LoginSchema } from "./auth.schemas";
-import { registerUser, loginUser, refreshAccessToken } from "./auth.service";
+import {
+  registerUser,
+  loginUser,
+  refreshAccessToken,
+  getAuthUser,
+} from "./auth.service";
 
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
@@ -94,4 +99,18 @@ export async function logout(_req: Request, res: Response) {
     message: "Logged out successfully",
     data: null,
   });
+}
+
+export async function getMe(req: Request, res: Response) {
+  try {
+    const user = await getAuthUser(req.user!.userId);
+    res.status(200).json({
+      success: true,
+      message: "User fetched",
+      data: { user },
+    });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Failed to fetch user";
+    res.status(401).json({ success: false, message, data: null });
+  }
 }

@@ -2,7 +2,13 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "../store";
-import { loginApi, registerApi, logoutApi, refreshTokenApi } from "../api";
+import {
+  loginApi,
+  registerApi,
+  logoutApi,
+  refreshTokenApi,
+  getMeApi,
+} from "../api";
 
 export function useLogin() {
   const setAuth = useAuthStore((s) => s.setAuth);
@@ -50,19 +56,11 @@ export function useInitAuth() {
     queryKey: ["auth", "refresh"],
     queryFn: async () => {
       const { accessToken } = await refreshTokenApi();
-
-      // decode the JWT to get user info — no library needed
-      const payload = JSON.parse(atob(accessToken.split(".")[1]));
-
-      // we need the full user from DB — for now store what we have
-      setAuth(
-        { id: payload.userId, email: "", role: payload.role },
-        accessToken
-      );
-
+      const user = await getMeApi(accessToken);
+      setAuth(user, accessToken);
       return accessToken;
     },
     retry: false,
-    staleTime: 14 * 60 * 1000, // 14 minutes (access token lasts 15)
+    staleTime: 14 * 60 * 1000,
   });
 }

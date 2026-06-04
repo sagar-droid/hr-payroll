@@ -69,3 +69,16 @@ export async function refreshTokenApi(): Promise<{ accessToken: string }> {
 
   return json.data;
 }
+
+export async function getMeApi(accessToken: string): Promise<AuthUser> {
+  const res = await fetch(`${API_URL}/api/auth/me`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    credentials: "include",
+  });
+
+  const json: ApiResponse<{ user: AuthUser }> = await res.json();
+
+  if (!json.success) throw new Error(json.message);
+
+  return json.data.user;
+}
