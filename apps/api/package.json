@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "seed": "tsx src/scripts/seed.ts"
   },
   "dependencies": {
     "@hr-payroll/types": "*",

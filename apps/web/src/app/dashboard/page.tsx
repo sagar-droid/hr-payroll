@@ -1,9 +1,9 @@
 "use client";
 
-import { useAuthStore } from "../../features/auth/store";
-import { useLogout } from "../../features/auth/hooks";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/src/features/auth/store";
+import { useLogout } from "@/src/features/auth/hooks";
 
 export default function DashboardPage() {
   const { user, isAuthenticated } = useAuthStore();
@@ -11,42 +11,37 @@ export default function DashboardPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.push("/login");
-    }
+    if (!isAuthenticated) router.push("/login");
   }, [isAuthenticated, router]);
 
   if (!isAuthenticated) return null;
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <h1 style={{ margin: "0 0 4px" }}>Dashboard</h1>
-          <p style={{ margin: 0, color: "#666" }}>
-            Welcome, {user?.email} — {user?.role}
+    <div className="p-8 font-sans">
+      <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-semibold">Dashboard</h1>
+          <p className="text-sm text-slate-500">
+            {user?.email} — {user?.role}
           </p>
         </div>
+
         <button
           onClick={() => logout.mutate()}
-          style={{
-            padding: "8px 16px",
-            background: "#fee2e2",
-            color: "#991b1b",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontWeight: 500,
-          }}
+          className="inline-flex rounded-2xl bg-rose-100 px-4 py-2 font-medium text-rose-800 transition hover:bg-rose-200"
         >
           {logout.isPending ? "Logging out..." : "Logout"}
         </button>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <a
+          href="/dashboard/employees"
+          className="block rounded-[1rem] border border-slate-200 bg-white p-5 text-slate-900 shadow-sm transition hover:shadow-md"
+        >
+          <p className="mb-1 text-xs text-slate-500">Manage</p>
+          <p className="text-lg font-semibold">Employees</p>
+        </a>
       </div>
     </div>
   );

@@ -9,15 +9,8 @@ function AuthLoader({ children }: { children: React.ReactNode }) {
 
   if (isLoading) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <p style={{ color: "#666", fontSize: "14px" }}>Loading...</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-sm text-slate-500">Loading...</p>
       </div>
     );
   }

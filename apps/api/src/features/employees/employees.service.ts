@@ -15,7 +15,7 @@ export async function getEmployees(query: EmployeeQuery) {
 
   if (search) {
     q = q.or(
-      `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike%${search}%`
+      `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%`
     );
   }
   if (employment_status) {

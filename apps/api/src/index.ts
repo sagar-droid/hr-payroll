@@ -18,7 +18,7 @@ app.use("/api/employees", employeeRoutes);
 
 app.get("/health", (req, res) => {
   const response: ApiResponse<{ status: string }> = {
-    success: true,
+    status: true,
     message: "API is running",
     data: { status: "ok" },
   };

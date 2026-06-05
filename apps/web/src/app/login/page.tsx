@@ -29,38 +29,44 @@ export default function LoginPage() {
   }
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <h1 style={styles.title}>HR Payroll</h1>
-        <p style={styles.subtitle}>Sign in to your account</p>
+    <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="w-full max-w-md rounded-[1.25rem] bg-white p-8 shadow-lg">
+        <h1 className="mb-1 text-3xl font-semibold">HR Payroll</h1>
+        <p className="mb-6 text-sm text-slate-500">Sign in to your account</p>
 
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <div style={styles.field}>
-            <label style={styles.label}>Email</label>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-slate-700">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={styles.input}
+              className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
               placeholder="you@company.com"
             />
-            {errors.email && <p style={styles.error}>{errors.email}</p>}
+            {errors.email && (
+              <p className="text-sm text-rose-600">{errors.email}</p>
+            )}
           </div>
 
-          <div style={styles.field}>
-            <label style={styles.label}>Password</label>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-slate-700">
+              Password
+            </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={styles.input}
+              className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
               placeholder="••••••••"
             />
-            {errors.password && <p style={styles.error}>{errors.password}</p>}
+            {errors.password && (
+              <p className="text-sm text-rose-600">{errors.password}</p>
+            )}
           </div>
 
           {login.error && (
-            <p style={styles.error}>
+            <p className="text-sm text-rose-600">
               {login.error instanceof Error
                 ? login.error.message
                 : "Login failed"}
@@ -70,15 +76,18 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={login.isPending}
-            style={styles.button}
+            className="rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {login.isPending ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
-        <p style={styles.footer}>
+        <p className="mt-6 text-center text-sm text-slate-500">
           Don&apos;t have an account?{" "}
-          <a href="/register" style={styles.link}>
+          <a
+            href="/register"
+            className="text-blue-600 transition hover:text-blue-800"
+          >
             Register
           </a>
         </p>
@@ -86,52 +95,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  page: {
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "#f5f5f5",
-  },
-  card: {
-    background: "white",
-    padding: "2rem",
-    borderRadius: "12px",
-    width: "100%",
-    maxWidth: "400px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-  },
-  title: { margin: "0 0 4px", fontSize: "24px", fontWeight: 600 },
-  subtitle: { margin: "0 0 24px", color: "#666", fontSize: "14px" },
-  form: { display: "flex", flexDirection: "column", gap: "16px" },
-  field: { display: "flex", flexDirection: "column", gap: "6px" },
-  label: { fontSize: "14px", fontWeight: 500 },
-  input: {
-    padding: "10px 12px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    fontSize: "14px",
-    outline: "none",
-  },
-  error: { color: "#e53e3e", fontSize: "12px", margin: 0 },
-  button: {
-    padding: "10px",
-    background: "#2563eb",
-    color: "white",
-    border: "none",
-    borderRadius: "8px",
-    fontSize: "14px",
-    fontWeight: 500,
-    cursor: "pointer",
-    marginTop: "8px",
-  },
-  footer: {
-    textAlign: "center",
-    fontSize: "14px",
-    marginTop: "16px",
-    color: "#666",
-  },
-  link: { color: "#2563eb", textDecoration: "none" },
-};
