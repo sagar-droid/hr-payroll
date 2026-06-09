@@ -42,6 +42,20 @@ export default function DashboardPage() {
           <p className="mb-1 text-xs text-slate-500">Manage</p>
           <p className="text-lg font-semibold">Employees</p>
         </a>
+        <a
+          href="/dashboard/employees"
+          className="block rounded-[1rem] border border-slate-200 bg-white p-5 text-slate-900 shadow-sm transition hover:shadow-md"
+        >
+          <p className="mb-1 text-xs text-slate-500">Track</p>
+          <p className="text-lg font-semibold">Attendance</p>
+        </a>
+        <a
+          href="/dashboard/employees"
+          className="block rounded-[1rem] border border-slate-200 bg-white p-5 text-slate-900 shadow-sm transition hover:shadow-md"
+        >
+          <p className="mb-1 text-xs text-slate-500">Manage</p>
+          <p className="text-lg font-semibold">Leave Requests</p>
+        </a>
       </div>
     </div>
   );
