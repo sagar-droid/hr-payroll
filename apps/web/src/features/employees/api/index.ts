@@ -52,7 +52,7 @@ export async function getEmployeesApi(
     accessToken
   );
   const json: ApiResponse<EmployeesResponse> = await res.json();
-  if (!json.status) throw new Error(json.message);
+  if (!json.success) throw new Error(json.message);
   return json.data;
 }
 
@@ -62,7 +62,7 @@ export async function getEmployeeApi(
 ): Promise<Employee> {
   const res = await authFetch(`${API_URL}/api/employees/${id}`, accessToken);
   const json: ApiResponse<{ employee: Employee }> = await res.json();
-  if (!json.status) throw new Error(json.message);
+  if (!json.success) throw new Error(json.message);
   return json.data.employee;
 }
 
@@ -75,7 +75,7 @@ export async function createEmployeeApi(
     body: JSON.stringify(input),
   });
   const json: ApiResponse<{ employee: Employee }> = await res.json();
-  if (!json.status) throw new Error(json.message);
+  if (!json.success) throw new Error(json.message);
   return json.data.employee;
 }
 
@@ -89,7 +89,7 @@ export async function updateEmployeeApi(
     body: JSON.stringify(input),
   });
   const json: ApiResponse<{ employee: Employee }> = await res.json();
-  if (!json.status) throw new Error(json.message);
+  if (!json.success) throw new Error(json.message);
   return json.data.employee;
 }
 
@@ -101,7 +101,7 @@ export async function deleteEmployeeApi(
     method: "DELETE",
   });
   const json = await res.json();
-  if (!json.status) throw new Error(json.message);
+  if (!json.success) throw new Error(json.message);
 }
 
 export async function getDepartmentsApi(
@@ -112,6 +112,6 @@ export async function getDepartmentsApi(
     accessToken
   );
   const json: ApiResponse<{ departments: Department[] }> = await res.json();
-  if (!json.status) throw new Error(json.message);
+  if (!json.success) throw new Error(json.message);
   return json.data.departments;
 }

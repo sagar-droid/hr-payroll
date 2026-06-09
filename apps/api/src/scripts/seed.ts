@@ -179,6 +179,96 @@ async function seed() {
 
   console.log(`✓ Created ${empData.length} employees`);
   console.log("✅ Seeding complete!");
+
+  // 6 — seed attendance records (last 30 days for each employee)
+  console.log("Seeding attendance records...");
+  const attendanceRecords = [];
+  const today = new Date();
+
+  for (const emp of empData) {
+    for (let i = 1; i <= 30; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() - i);
+
+      // skip weekends
+      if (date.getDay() === 0 || date.getDay() === 6) continue;
+
+      // 90% attendance rate
+      if (Math.random() > 0.9) continue;
+
+      const checkInHour = 8 + Math.floor(Math.random() * 2);
+      const checkInMin = Math.floor(Math.random() * 60);
+      const checkIn = new Date(date);
+      checkIn.setHours(checkInHour, checkInMin, 0, 0);
+
+      const checkOut = new Date(checkIn);
+      checkOut.setHours(
+        checkInHour + 7 + Math.floor(Math.random() * 2),
+        Math.floor(Math.random() * 60),
+        0,
+        0
+      );
+
+      const hours_worked =
+        Math.round(
+          ((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60)) * 100
+        ) / 100;
+
+      attendanceRecords.push({
+        employee_id: emp.id,
+        date: date.toISOString().split("T")[0],
+        check_in: checkIn.toISOString(),
+        check_out: checkOut.toISOString(),
+        hours_worked,
+      });
+    }
+  }
+
+  const { error: attError } = await supabase
+    .from("attendance_records")
+    .insert(attendanceRecords);
+
+  if (attError) {
+    console.error("Failed to seed attendance:", attError.message);
+    process.exit(1);
+  }
+
+  console.log(`✓ Created ${attendanceRecords.length} attendance records`);
+
+  // 7 — seed leave requests
+  console.log("Seeding leave requests...");
+  const { data: leaveTypes } = await supabase
+    .from("leave_types")
+    .select("id")
+    .limit(3);
+
+  if (leaveTypes && leaveTypes.length > 0) {
+    const leaveRequests = empData.slice(0, 6).map((emp, i) => ({
+      employee_id: emp.id,
+      leave_type_id: leaveTypes[i % leaveTypes.length].id,
+      start_date: new Date(today.getTime() + (i + 1) * 7 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0],
+      end_date: new Date(
+        today.getTime() + ((i + 1) * 7 + 3) * 24 * 60 * 60 * 1000
+      )
+        .toISOString()
+        .split("T")[0],
+      days_requested: 3,
+      status: i < 2 ? "APPROVED" : i < 4 ? "REJECTED" : "PENDING",
+      reason: "Personal reasons",
+    }));
+
+    const { error: leaveError } = await supabase
+      .from("leave_requests")
+      .insert(leaveRequests);
+
+    if (leaveError) {
+      console.error("Failed to seed leave requests:", leaveError.message);
+    } else {
+      console.log(`✓ Created ${leaveRequests.length} leave requests`);
+    }
+  }
 }
 
 seed();

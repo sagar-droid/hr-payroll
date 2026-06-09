@@ -18,7 +18,7 @@ export async function listEmployees(req: Request, res: Response) {
 
   if (!result.success) {
     res.status(400).json({
-      status: false,
+      success: false,
       message: "Invalid query parameters",
       data: result.error.issues,
     });
@@ -28,14 +28,14 @@ export async function listEmployees(req: Request, res: Response) {
   try {
     const data = await getEmployees(result.data);
     res.status(200).json({
-      status: true,
+      success: true,
       message: "fetched employees data",
       data: data,
     });
   } catch (err: unknown) {
     const message =
       err instanceof Error ? err.message : "Failed to fetch Employees";
-    res.status(500).json({ status: false, message: message, data: null });
+    res.status(500).json({ success: false, message: message, data: null });
   }
 }
 
@@ -44,13 +44,13 @@ export async function getEmployee(req: Request, res: Response) {
     const employee = await getEmployeeById(req.params.id);
 
     res.status(200).json({
-      status: true,
+      success: true,
       message: "Employee found",
       data: { employee },
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Employee not found";
-    res.status(500).json({ status: false, message: message, data: null });
+    res.status(500).json({ success: false, message: message, data: null });
   }
 }
 
@@ -59,7 +59,7 @@ export async function addEmployee(req: Request, res: Response) {
 
   if (!result.success) {
     res.status(400).json({
-      status: false,
+      success: false,
       message: "Failed to add Employee",
       data: result.error.issues,
     });
@@ -85,7 +85,7 @@ export async function editEmployee(req: Request, res: Response) {
 
   if (!result.success) {
     res.status(400).json({
-      status: false,
+      success: false,
       message: "Failed to Edit Employee",
       data: result.error.issues,
     });
@@ -95,7 +95,7 @@ export async function editEmployee(req: Request, res: Response) {
   try {
     const employee = await updateEmployee(req.params.id, result.data);
     res.status(200).json({
-      status: true,
+      success: true,
       message: "Updated successfully",
       data: { employee },
     });

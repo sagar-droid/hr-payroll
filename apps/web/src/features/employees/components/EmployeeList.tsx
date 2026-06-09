@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useEmployees, useDeleteEmployee } from "../hooks";
 import { useAuthStore } from "../../auth/store";
+import Skeleton from "../../../components/Skeleton";
 
 export function EmployeeList() {
   const [page, setPage] = useState(1);
@@ -29,8 +30,7 @@ export function EmployeeList() {
     }
   }
 
-  if (isLoading)
-    return <p className="mb-4 text-sm text-slate-500">Loading employees...</p>;
+  if (isLoading) return <Skeleton variant="table" rows={6} />;
   if (isError)
     return (
       <p className="mb-4 text-sm text-rose-600">Failed to load employees.</p>
