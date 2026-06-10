@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./features/auth/auth.routes";
 import employeeRoutes from "./features/employees/employees.routes";
 import attendanceRoutes from "./features/attendance/attendance.routes";
+import payrollRoutes from "./features/payroll/payroll.routes";
 import type { ApiResponse } from "@hr-payroll/types";
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/attendance", attendanceRoutes);
+app.use("/api/payroll", payrollRoutes);
 
 app.get("/health", (req, res) => {
   const response: ApiResponse<{ success: string }> = {
