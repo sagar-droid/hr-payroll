@@ -7,6 +7,7 @@ export const RegisterSchema = z.object({
     .min(8, "Password must be at least 8 characters")
     .max(100),
   role: z.enum(["ADMIN", "HR_MANAGER", "EMPLOYEE"]).default("EMPLOYEE"),
+  permissions: z.array(z.string()).optional(),
 });
 
 export const LoginSchema = z.object({
