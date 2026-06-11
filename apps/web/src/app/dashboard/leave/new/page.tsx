@@ -7,6 +7,7 @@ import {
   useCreateLeaveRequest,
 } from "@/src/features/attendance/hooks";
 import { useEmployees } from "@/src/features/employees/hooks";
+import Link from "next/link";
 
 export default function NewLeavePage() {
   const router = useRouter();
@@ -71,12 +72,12 @@ export default function NewLeavePage() {
   return (
     <div className="p-8 font-sans max-w-xl">
       <div className="mb-6">
-        <a
+        <Link
           href="/dashboard/leave"
           className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
         >
           ← Back to leave requests
-        </a>
+        </Link>
         <h1 className="text-2xl font-semibold text-gray-900 mt-2 mb-1">
           New leave request
         </h1>

@@ -1,68 +1,42 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/src/features/auth/store";
-import { useLogout } from "@/src/features/auth/hooks";
+import Link from "next/link";
+
+const cardStyle =
+  "p-5 bg-white rounded-xl border border-gray-200 hover:border-gray-300 transition-colors no-underline block";
 
 export default function DashboardPage() {
-  const { user, isAuthenticated } = useAuthStore();
-  const logout = useLogout();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, [isAuthenticated, router]);
-
-  if (!isAuthenticated) return null;
+  const { user } = useAuthStore();
 
   return (
-    <div className="p-8 font-sans">
-      <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <div className="space-y-1">
-          <h1 className="text-3xl font-semibold">Dashboard</h1>
-          <p className="text-sm text-slate-500">
-            {user?.email} — {user?.role}
-          </p>
-        </div>
-
-        <button
-          onClick={() => logout.mutate()}
-          className="inline-flex rounded-2xl bg-rose-100 px-4 py-2 font-medium text-rose-800 transition hover:bg-rose-200"
-        >
-          {logout.isPending ? "Logging out..." : "Logout"}
-        </button>
+    <div className="p-8">
+      <div className="mb-8">
+        <h1 className="text-2xl font-semibold text-gray-900 mb-1">
+          Welcome back
+        </h1>
+        <p className="text-sm text-gray-500">
+          {user?.email} — {user?.role}
+        </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <a
-          href="/dashboard/employees"
-          className="block rounded-[1rem] border border-slate-200 bg-white p-5 text-slate-900 shadow-sm transition hover:shadow-md"
-        >
-          <p className="mb-1 text-xs text-slate-500">Manage</p>
-          <p className="text-lg font-semibold">Employees</p>
-        </a>
-        <a
-          href="/dashboard/attendance"
-          className="block rounded-[1rem] border border-slate-200 bg-white p-5 text-slate-900 shadow-sm transition hover:shadow-md"
-        >
-          <p className="mb-1 text-xs text-slate-500">Track</p>
-          <p className="text-lg font-semibold">Attendance</p>
-        </a>
-        <a
-          href="/dashboard/leave-requests"
-          className="block rounded-[1rem] border border-slate-200 bg-white p-5 text-slate-900 shadow-sm transition hover:shadow-md"
-        >
-          <p className="mb-1 text-xs text-slate-500">Manage</p>
-          <p className="text-lg font-semibold">Leave Requests</p>
-        </a>
-        <a
-          href="/dashboard/payroll"
-          className="block rounded-[1rem] border border-slate-200 bg-white p-5 text-slate-900 shadow-sm transition hover:shadow-md"
-        >
-          <p className="mb-1 text-xs text-slate-500">Process</p>
-          <p className="text-lg font-semibold">Payroll</p>
-        </a>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <Link href="/dashboard/employees" className={cardStyle}>
+          <p className="text-xs text-gray-400 mb-1">Manage</p>
+          <p className="text-lg font-semibold text-gray-900">Employees</p>
+        </Link>
+        <Link href="/dashboard/attendance" className={cardStyle}>
+          <p className="text-xs text-gray-400 mb-1">Track</p>
+          <p className="text-lg font-semibold text-gray-900">Attendance</p>
+        </Link>
+        <Link href="/dashboard/leave" className={cardStyle}>
+          <p className="text-xs text-gray-400 mb-1">Manage</p>
+          <p className="text-lg font-semibold text-gray-900">Leave</p>
+        </Link>
+        <Link href="/dashboard/payroll" className={cardStyle}>
+          <p className="text-xs text-gray-400 mb-1">Process</p>
+          <p className="text-lg font-semibold text-gray-900">Payroll</p>
+        </Link>
       </div>
     </div>
   );

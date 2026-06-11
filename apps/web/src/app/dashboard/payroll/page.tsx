@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { usePayrollRuns, useRunPayroll } from "@/src/features/payroll/hooks";
 import { useAuthStore } from "@/src/features/auth/store";
+import Link from "next/link";
 
 const statusStyles: Record<string, string> = {
   DRAFT: "bg-gray-100 text-gray-600",
@@ -176,12 +177,12 @@ export default function PayrollPage() {
                         {new Date(run.created_at).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3">
-                        <a
+                        <Link
                           href={`/dashboard/payroll/${run.id}`}
                           className="text-blue-600 hover:text-blue-700 text-sm font-medium"
                         >
                           View details
-                        </a>
+                        </Link>
                       </td>
                     </tr>
                   ))}

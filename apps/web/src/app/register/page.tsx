@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRegister } from "../../features/auth/hooks";
 import { RegisterSchema } from "../../features/auth/schemas";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const register = useRegister();
@@ -113,12 +114,12 @@ export default function RegisterPage() {
 
         <p className="mt-6 text-center text-sm text-slate-500">
           Already have an account?{" "}
-          <a
+          <Link
             href="/login"
             className="text-blue-600 transition hover:text-blue-800"
           >
             Sign in
-          </a>
+          </Link>
         </p>
       </div>
     </div>

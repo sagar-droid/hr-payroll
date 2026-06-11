@@ -6,6 +6,7 @@ import {
   useReviewLeaveRequest,
 } from "@/src/features/attendance/hooks";
 import { useAuthStore } from "@/src/features/auth/store";
+import Link from "next/link";
 
 const statusStyles: Record<string, string> = {
   PENDING: "bg-yellow-100 text-yellow-700",
@@ -42,12 +43,12 @@ export default function LeavePage() {
           </h1>
           <p className="text-sm text-gray-500">Manage employee leave</p>
         </div>
-        <a
+        <Link
           href="/dashboard/leave/new"
           className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
         >
           New request
-        </a>
+        </Link>
       </div>
 
       <div className="mb-5">

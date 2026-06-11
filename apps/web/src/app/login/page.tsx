@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLogin } from "../../features/auth/hooks";
 import { LoginSchema } from "../../features/auth/schemas";
+import Link from "next/link";
 
 export default function LoginPage() {
   const login = useLogin();
@@ -84,12 +85,12 @@ export default function LoginPage() {
 
         <p className="mt-6 text-center text-sm text-slate-500">
           Don&apos;t have an account?{" "}
-          <a
+          <Link
             href="/register"
             className="text-blue-600 transition hover:text-blue-800"
           >
             Register
-          </a>
+          </Link>
         </p>
       </div>
     </div>

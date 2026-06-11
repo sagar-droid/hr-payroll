@@ -4,6 +4,7 @@ import { use } from "react";
 import { useRouter } from "next/navigation";
 import { useEmployee, useUpdateEmployee } from "@/src/features/employees/hooks";
 import { EmployeeForm } from "@/src/features/employees/components/EmployeeForm";
+import Link from "next/link";
 
 export default function EditEmployeePage({
   params,
@@ -23,12 +24,12 @@ export default function EditEmployeePage({
   return (
     <div className="p-8 font-sans max-w-4xl">
       <div className="mb-6 space-y-3">
-        <a
+        <Link
           href={`/dashboard/employees/${id}`}
           className="text-sm text-slate-500 transition hover:text-slate-700"
         >
           ← Back to employee
-        </a>
+        </Link>
         <h1 className="text-2xl font-semibold">
           Edit {employee.first_name} {employee.last_name}
         </h1>

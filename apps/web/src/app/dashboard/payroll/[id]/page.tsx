@@ -6,6 +6,7 @@ import {
   useUpdatePayrollRecord,
 } from "@/src/features/payroll/hooks";
 import { useAuthStore } from "@/src/features/auth/store";
+import Link from "next/link";
 
 const recordStatusStyles: Record<string, string> = {
   PENDING: "bg-yellow-100 text-yellow-700",
@@ -46,12 +47,12 @@ export default function PayrollRunPage({
     <div className="p-8 font-sans">
       {/* header */}
       <div className="mb-6">
-        <a
+        <Link
           href="/dashboard/payroll"
           className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
         >
           ← Back to payroll
-        </a>
+        </Link>
         <div className="flex justify-between items-start mt-2">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900 mb-1">

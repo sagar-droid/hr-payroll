@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEmployees, useDeleteEmployee } from "../hooks";
 import { useAuthStore } from "../../auth/store";
 import Skeleton from "../../../components/Skeleton";
+import Link from "next/link";
 
 export function EmployeeList() {
   const [page, setPage] = useState(1);
@@ -139,20 +140,20 @@ export function EmployeeList() {
                       </span>
                     </td>
                     <td className="px-4 py-4 align-middle space-x-3 text-sm">
-                      <a
+                      <Link
                         href={`/dashboard/employees/${emp.id}`}
                         className="text-blue-600 transition hover:text-blue-800"
                       >
                         View
-                      </a>
+                      </Link>
                       {(user?.role === "ADMIN" ||
                         user?.role === "HR_MANAGER") && (
-                        <a
+                        <Link
                           href={`/dashboard/employees/${emp.id}/edit`}
                           className="text-blue-600 transition hover:text-blue-800"
                         >
                           Edit
-                        </a>
+                        </Link>
                       )}
                       {user?.role === "ADMIN" && (
                         <button
