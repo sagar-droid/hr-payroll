@@ -182,7 +182,13 @@ async function seed() {
 
   // 6 — seed attendance records (last 30 days for each employee)
   console.log("Seeding attendance records...");
-  const attendanceRecords = [];
+  const attendanceRecords: {
+    employee_id: string;
+    date: string;
+    check_in: string;
+    check_out: string;
+    hours_worked: number;
+  }[] = [];
   const today = new Date();
 
   for (const emp of empData) {
