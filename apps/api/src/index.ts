@@ -18,7 +18,10 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 
 app.use(
   cors({
-    origin: (origin, callback) => {
+    origin: (
+      origin: string | undefined,
+      callback: (err: Error | null, allow?: boolean) => void
+    ) => {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -38,7 +41,7 @@ app.use("/api/attendance", attendanceRoutes);
 app.use("/api/payroll", payrollRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
-app.get("/health", (req, res) => {
+app.get("/health", (req: express.Request, res: express.Response) => {
   const response: ApiResponse<{ success: string }> = {
     success: true,
     message: "API is running",

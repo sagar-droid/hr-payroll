@@ -150,12 +150,12 @@ async function seed() {
 
   // 3 — map department names to ids
   const deptMap: Record<string, string> = {};
-  deptData.forEach((d) => {
+  deptData.forEach((d: { id: string; name: string }) => {
     deptMap[d.name] = d.id;
   });
 
   // 4 — assign departments to employees
-  const employeesWithDepts = employees.map((emp, i) => ({
+  const employeesWithDepts = employees.map((emp: any, i: number) => ({
     ...emp,
     department_id: deptData[i % deptData.length].id,
     joined_at: new Date(
@@ -243,7 +243,7 @@ async function seed() {
     .limit(3);
 
   if (leaveTypes && leaveTypes.length > 0) {
-    const leaveRequests = empData.slice(0, 6).map((emp, i) => ({
+    const leaveRequests = empData.slice(0, 6).map((emp: any, i: number) => ({
       employee_id: emp.id,
       leave_type_id: leaveTypes[i % leaveTypes.length].id,
       start_date: new Date(today.getTime() + (i + 1) * 7 * 24 * 60 * 60 * 1000)

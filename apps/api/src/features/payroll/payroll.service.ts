@@ -134,26 +134,28 @@ export async function createAndRunPayroll(
   }
 
   // 6 — calculate payroll for each employee
-  const payrollRecords = employees.map((emp) => {
-    const att = attendanceMap.get(emp.id) ?? { days: 0, hours: 0 };
-    const leave_days = leaveMap.get(emp.id) ?? 0;
-    const days_absent = Math.max(0, working_days - att.days - leave_days);
+  const payrollRecords = employees.map(
+    (emp: { id: string; salary: number }) => {
+      const att = attendanceMap.get(emp.id) ?? { days: 0, hours: 0 };
+      const leave_days = leaveMap.get(emp.id) ?? 0;
+      const days_absent = Math.max(0, working_days - att.days - leave_days);
 
-    const calc = calculatePayroll({
-      employee_id: emp.id,
-      basic_salary: emp.salary,
-      working_days,
-      days_present: att.days,
-      days_absent,
-      days_on_leave: leave_days,
-      total_hours_worked: att.hours,
-    });
+      const calc = calculatePayroll({
+        employee_id: emp.id,
+        basic_salary: emp.salary,
+        working_days,
+        days_present: att.days,
+        days_absent,
+        days_on_leave: leave_days,
+        total_hours_worked: att.hours,
+      });
 
-    return {
-      payroll_run_id: run.id,
-      ...calc,
-    };
-  });
+      return {
+        payroll_run_id: run.id,
+        ...calc,
+      };
+    }
+  );
 
   // 7 — insert all payroll records
   const { error: insertError } = await supabase
