@@ -11,6 +11,7 @@ const navItems = [
   { label: "Attendance", href: "/dashboard/attendance", icon: "📅" },
   { label: "Leave", href: "/dashboard/leave", icon: "🌴" },
   { label: "Payroll", href: "/dashboard/payroll", icon: "💰" },
+  { label: "Analytics", href: "/dashboard/analytics", icon: "📊" },
 ];
 
 export function DashboardSidebar() {

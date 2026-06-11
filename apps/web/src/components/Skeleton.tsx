@@ -1,20 +1,24 @@
 "use client";
 
-import React from "react";
-
-type Variant = "table" | "card";
+type Variant = "table" | "card" | "stats";
 
 interface SkeletonProps {
   variant?: Variant;
   rows?: number;
   cardsPerRow?: number;
   className?: string;
+  label?: string;
+  value?: string | number;
+  sub?: string;
 }
 
 export default function Skeleton({
   variant = "table",
   rows = 5,
   cardsPerRow = 3,
+  label = "",
+  value = "",
+  sub = "",
   className = "",
 }: SkeletonProps) {
   if (variant === "card") {
@@ -36,6 +40,16 @@ export default function Skeleton({
             </div>
           </div>
         ))}
+      </div>
+    );
+  }
+
+  if (variant === "stats") {
+    return (
+      <div className="bg-white border border-gray-200 rounded-xl p-5">
+        <p className="text-xs text-gray-400 mb-1">{label}</p>
+        <p className="text-2xl font-semibold text-gray-900">{value}</p>
+        {sub && <p className="text-xs text-gray-400 mt-1">{sub}</p>}
       </div>
     );
   }

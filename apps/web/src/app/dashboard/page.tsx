@@ -37,6 +37,10 @@ export default function DashboardPage() {
           <p className="text-xs text-gray-400 mb-1">Process</p>
           <p className="text-lg font-semibold text-gray-900">Payroll</p>
         </Link>
+        <Link href="/dashboard/analytics" className={cardStyle}>
+          <p className="text-xs text-gray-400 mb-1">View</p>
+          <p className="text-lg font-semibold text-gray-900">Analytics</p>
+        </Link>
       </div>
     </div>
   );
