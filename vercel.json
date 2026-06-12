@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm install --legacy-peer-deps && npm run build --workspace=apps/web",
+  "installCommand": "npm ci --prefer-offline --no-audit",
+  "env": {
+    "SKIP_ENV_VALIDATION": "true"
+  },
+  "github": {
+    "silent": true
+  }
+}
