@@ -61,8 +61,11 @@ export function EmployeeForm({
     onSubmit({
       ...form,
       salary: Number(form.salary),
-      department_id: form.department_id || null,
-      phone: form.phone || null,
+      department_id: form.department_id || undefined,
+      phone: form.phone || undefined,
+      joined_at: form.joined_at
+        ? new Date(form.joined_at).toISOString()
+        : undefined,
     });
   }
 

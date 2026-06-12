@@ -116,7 +116,7 @@ export async function deleteEmployee(id: string) {
 
 export async function getDepartments() {
   const { data, error } = await supabase
-    .from("deparments")
+    .from("departments")
     .select("*")
     .order("name");
 
